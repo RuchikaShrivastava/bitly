@@ -39,10 +39,10 @@ describe('Test QR Code Monkey Website', () => {
 
     it('should be able to select quality through slider', () => {
         cy.get(QR.slider)
-        .trigger('mousedown', { which: 1 }, { force: true })
-        .trigger('mousemove', 120, 0, { force: true })
-        .trigger('mouseup')
-        .get(QR.sliderValue).should('contain.text', '1800 x 1800 Px');
+            .trigger('mousedown', { which: 1 }, { force: true })
+            .trigger('mousemove', 120, 0, { force: true })
+            .trigger('mouseup')
+            .get(QR.sliderValue).should('contain.text', '1800 x 1800 Px');
     })
 
     it('should have only first pane opened by default', () => {
@@ -76,12 +76,31 @@ describe('Test QR Code Monkey Website', () => {
             .get(logoPane.logoPlaceholder).should('exist')
     })
 
-    it.only('should be able to swap colors gradients', () => {
+    it('should be able to swap colors gradients', () => {
         cy.openPane(2)
             .get(setColorsPane.colorGradientRadio).click()
             .setFirstColor('#D21919').setSecondColor('#0277BD')
             .get(setColorsPane.swapColorGradient).click()
             .get(setColorsPane.firstColor).should('have.value', '#0277BD')
             .get(setColorsPane.secondColor).should('have.value', '#D21919')
+    })
+
+    it('should be able to download QR code', () => {
+        cy.openPane(2)
+            .get(setColorsPane.colorGradientRadio).click()
+            .setFirstColor('#D21919').setSecondColor('#0277BD')
+            .get(logoPane.uploadLogo).attachFile('image.jpeg')
+            .get(QR.createQRCode).click()
+
+            // Below hack is due to cypress bug - Issue #14857
+        cy.window().document().then(function (doc) {
+            doc.addEventListener('click', () => {
+                setTimeout(function () { doc.location.reload() }, 5000)
+            })
+            cy.get(QR.downloadPng).click()
+        }).then(() => {
+            cy.readFile('cypress/downloads/qr-code.png', { timeout: 10000 })
+                .should('exist')
+        })
     })
 })
