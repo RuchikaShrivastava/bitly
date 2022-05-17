@@ -2,7 +2,7 @@
   "name": "bitly",
   "version": "1.0.0",
   "author": "Ruchika Shrivastava",
-  "description": "This repo contains api tests for resreq.in website",
+  "description": "This repo contains tests for QR code monkey website",
   "private": true,
   "main": "index.js",
   "scripts": {
