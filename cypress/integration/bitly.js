@@ -1,8 +1,7 @@
 /// <reference types="cypress" />
 
 import { QR, logoPane, setColorsPane } from '../fixtures/locators.json'
-import chaiColors from 'chai-colors'
-chai.use(chaiColors);
+import 'cypress-file-upload';
 
 describe('Test QR Code Monkey Website', () => {
 
@@ -92,6 +91,16 @@ describe('Test QR Code Monkey Website', () => {
             .get(logoPane.logoPlaceholder).should('exist')
     })
 
+    it('should give error for upload file > 2MB', () => {
+        cy
+            .openPane(3)
+            .get(logoPane.uploadLogo).attachFile('bigFile.png')
+            .get(logoPane.fileError)
+            .should('exist').and('contain.text', 'File is too big. Max. size is 2 MB.')
+            .get(logoPane.logoPlaceholder).should('exist')
+            .get(logoPane.removeLogo).should('have.class', 'ng-hide')
+    })
+
     it('should be able to swap colors gradients', () => {
         cy.openPane(2)
             .get(setColorsPane.colorGradientRadio).click()
@@ -113,9 +122,16 @@ describe('Test QR Code Monkey Website', () => {
         })
     })
 
-    it('should show info modal for unscribed users', () => {
+    it('should show info modal for unsubscribed users', () => {
         cy
+            // Info Modal for Uploading MP3, PDF or any file
             .get(QR.uploadMediaToQR).click()
             .get(QR.adModal).should('exist')
+            // Info Modal for statistics and editability
+            .get(QR.statistics).click({force: true})
+            .get(QR.statisticsModal).should('exist')
+            // Info Modal for Spotlight your logo
+            .get(QR.spotlightLogo).click({force: true})
+            .get(QR.logoModal).should('exist')
     })
 })

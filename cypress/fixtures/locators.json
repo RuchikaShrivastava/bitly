@@ -12,7 +12,11 @@
         "slider": ".rz-pointer.rz-pointer-min",
         "sliderValue": ".size-label .center",
         "uploadMediaToQR": ".row.bottom-options a",
-        "adModal": "div[ng-show='showPrintModal']"
+        "adModal": "div[ng-show='showPrintModal']",
+        "statisticsModal": "div[ng-show='showStatisticsModal']",
+        "spotlightLogo": ".ad.d-block",
+        "logoModal": "div[ng-show='showLogoModal']",
+        "statistics": "a[ng-click=\"openModal('statistics')\"]"
     },
     "enterContentPane": {
         "urlTextBox": "#qrcodeUrl"
@@ -21,7 +25,8 @@
         "removeLogo": ".btn-default",
         "logoPlaceholder": ".logo-preview .loader",
         "uploadLogo": ".btn-upload",
-        "logoPreview": ".logo-preview img"
+        "logoPreview": ".logo-preview img",
+        "fileError": "small[ng-show='fileSizeError']"
     },
     "setColorsPane": {
         "colorGradientRadio": "input[value='gradient']",
