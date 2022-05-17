@@ -1,0 +1,24 @@
+{
+    "QR": {
+        "activePane": ".pane.active",
+        "collpaseButton": ".minus",
+        "title": ".title",
+        "enterContentPane": ".pane:nth-child(1)",
+        "addLogoPane": ".pane:nth-child(3)",
+        "setColorPane": ".pane:nth-child(2)",
+        "createQRCode": "#button-create-qr-code",
+        "downloadPng": "#button-download-qr-code-png",
+        "QRPreview": ".preview img",
+        "slider": ".rz-pointer.rz-pointer-min",
+        "sliderValue": ".size-label .center"
+    },
+    "enterContentPane": {
+        "urlTextBox": "#qrcodeUrl"
+    },
+    "logoPane": {
+        "removeLogo": ".btn-default",
+        "logoPlaceholder": ".logo-preview .loader",
+        "uploadLogo": ".btn-upload",
+        "logoPreview": ".logo-preview img"
+    }
+}
