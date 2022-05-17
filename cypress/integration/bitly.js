@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 
-import { QR, logoPane } from '../fixtures/locators.json'
+import { QR, logoPane, setColorsPane } from '../fixtures/locators.json'
+import chaiColors from 'chai-colors'
+chai.use(chaiColors);
 
 describe('Test QR Code Monkey Website', () => {
 
@@ -72,5 +74,14 @@ describe('Test QR Code Monkey Website', () => {
             .get(logoPane.logoPlaceholder).should('exist')
             .get(logoPane.removeLogo).should('have.class', 'ng-hide')
             .get(logoPane.logoPlaceholder).should('exist')
+    })
+
+    it.only('should be able to swap colors gradients', () => {
+        cy.openPane(2)
+            .get(setColorsPane.colorGradientRadio).click()
+            .setFirstColor('#D21919').setSecondColor('#0277BD')
+            .get(setColorsPane.swapColorGradient).click()
+            .get(setColorsPane.firstColor).should('have.value', '#0277BD')
+            .get(setColorsPane.secondColor).should('have.value', '#D21919')
     })
 })

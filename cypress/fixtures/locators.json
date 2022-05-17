@@ -20,5 +20,13 @@
         "logoPlaceholder": ".logo-preview .loader",
         "uploadLogo": ".btn-upload",
         "logoPreview": ".logo-preview img"
+    },
+    "setColorsPane": {
+        "colorGradientRadio": "input[value='gradient']",
+        "firstColor": "[ng-model='qrcode.config.gradientColor1'] input",
+        "secondColor": "[ng-model='qrcode.config.gradientColor2'] input",
+        "swapColorGradient": "button[ng-click='swapGradient()']",
+        "selectGradient": ".input-group select",
+        "bgColor": "[ng-model='qrcode.config.bgColor'] input"
     }
 }

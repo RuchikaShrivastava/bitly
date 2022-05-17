@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import 'cypress-file-upload';
-import {enterContentPane, logoPane} from '../fixtures/locators.json'
+import {enterContentPane, logoPane, setColorsPane} from '../fixtures/locators.json'
 import 'cypress-iframe';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 const reader = new BrowserMultiFormatReader();
@@ -55,3 +55,11 @@ Cypress.Commands.add('readCode', { prevSubject: true }, (subject) => {
     image.crossOrigin = 'Anonymous';
     return reader.decodeFromImageElement(image);
   });
+
+Cypress.Commands.add('setFirstColor', (color) => {
+    cy.get(setColorsPane.firstColor).clear().type(color)
+})
+
+Cypress.Commands.add('setSecondColor', (color) => {
+    cy.get(setColorsPane.secondColor).clear().type(color)
+})
