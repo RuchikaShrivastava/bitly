@@ -23,6 +23,25 @@ describe('Test QR Code Monkey Website', () => {
             })
     })
 
+    it('should disable createQR button once created', () => {
+        cy
+            .setUrl("https://google.com")
+            .openPane(3)
+            .uploadLogo('image.jpeg')
+            .get(QR.createQRCode).click()
+            .get(QR.createQRCode).should('have.attr', 'disabled')
+    })
+
+    it('should disable download button if QR not created', () => {
+        cy
+            .setUrl("https://google.com")
+            .openPane(3)
+            .uploadLogo('image.jpeg')
+            .get(QR.downloadPng).should('have.attr', 'disabled', 'disabled')
+            .get(QR.createQRCode).click()
+            .get(QR.downloadPng).should('not.have.attr', 'disabled')
+    })
+
     it('should have default QR code and generate correct QR code', () => {
         cy.get(QR.QRPreview).readCode() // Read Default QR
             .should('have.property', 'text', 'https://qrstud.io/qrmnky')
@@ -38,10 +57,7 @@ describe('Test QR Code Monkey Website', () => {
     })
 
     it('should be able to select quality through slider', () => {
-        cy.get(QR.slider)
-            .trigger('mousedown', { which: 1 }, { force: true })
-            .trigger('mousemove', 120, 0, { force: true })
-            .trigger('mouseup')
+        cy.moveSlider(120)
             .get(QR.sliderValue).should('contain.text', '1800 x 1800 Px');
     })
 
@@ -91,16 +107,15 @@ describe('Test QR Code Monkey Website', () => {
             .setFirstColor('#D21919').setSecondColor('#0277BD')
             .get(logoPane.uploadLogo).attachFile('image.jpeg')
             .get(QR.createQRCode).click()
-
-            // Below hack is due to cypress bug - Issue #14857
-        cy.window().document().then(function (doc) {
-            doc.addEventListener('click', () => {
-                setTimeout(function () { doc.location.reload() }, 5000)
-            })
-            cy.get(QR.downloadPng).click()
-        }).then(() => {
+            .downloadPng().then(() => {
             cy.readFile('cypress/downloads/qr-code.png', { timeout: 10000 })
                 .should('exist')
         })
+    })
+
+    it('should show info modal for unscribed users', () => {
+        cy
+            .get(QR.uploadMediaToQR).click()
+            .get(QR.adModal).should('exist')
     })
 })

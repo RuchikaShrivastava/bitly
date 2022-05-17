@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import 'cypress-file-upload';
-import {enterContentPane, logoPane, setColorsPane} from '../fixtures/locators.json'
+import {QR, enterContentPane, logoPane, setColorsPane} from '../fixtures/locators.json'
 import 'cypress-iframe';
 import { BrowserMultiFormatReader } from '@zxing/browser';
 const reader = new BrowserMultiFormatReader();
@@ -42,8 +42,14 @@ Cypress.Commands.add('uploadLogo', (file) => {
     cy.get(logoPane.uploadLogo).attachFile(file)
 })
 
-Cypress.Commands.add('waitForDownloadPng', () => {
-    cy.get(logoPane.uploadLogo).attachFile(file)
+Cypress.Commands.add('downloadPng', () => {
+    // Below hack is due to cypress bug - Issue #14857
+    cy.window().document().then(function (doc) {
+        doc.addEventListener('click', () => {
+            setTimeout(function () { doc.location.reload() }, 5000)
+        })
+        cy.get(QR.downloadPng).click()
+    })
 })
 
 Cypress.Commands.add('readCode', { prevSubject: true }, (subject) => {
@@ -62,4 +68,11 @@ Cypress.Commands.add('setFirstColor', (color) => {
 
 Cypress.Commands.add('setSecondColor', (color) => {
     cy.get(setColorsPane.secondColor).clear().type(color)
+})
+
+Cypress.Commands.add('moveSlider', (value) => {
+    cy.get(QR.slider)
+        .trigger('mousedown', { which: 1 }, { force: true })
+        .trigger('mousemove', value, 0, { force: true })
+        .trigger('mouseup')
 })

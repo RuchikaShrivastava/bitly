@@ -10,7 +10,9 @@
         "downloadPng": "#button-download-qr-code-png",
         "QRPreview": ".preview img",
         "slider": ".rz-pointer.rz-pointer-min",
-        "sliderValue": ".size-label .center"
+        "sliderValue": ".size-label .center",
+        "uploadMediaToQR": ".row.bottom-options a",
+        "adModal": "div[ng-show='showPrintModal']"
     },
     "enterContentPane": {
         "urlTextBox": "#qrcodeUrl"
