@@ -96,7 +96,7 @@ describe('Test QR Code Monkey Website', () => {
             .openPane(3)
             .get(logoPane.uploadLogo).attachFile('bigFile.png')
             .get(logoPane.fileError)
-            .should('exist').and('contain.text', 'File is too big. Max. size is 2 MB.')
+            .should('exist').and('not.have.class', 'ng-hide').and('contain.text', 'File is too big. Max. size is 2 MB.')
             .get(logoPane.logoPlaceholder).should('exist')
             .get(logoPane.removeLogo).should('have.class', 'ng-hide')
     })
