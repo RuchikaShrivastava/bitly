@@ -3,6 +3,9 @@
 ##  About Framework
 This repo contains cypress framework for testing of QRCodeMonkey website
 
+## Prerequisite
+This framework is built on nodev12 and npmv6
+
 ##  Where are Tests
 Tests are present in cypress/integration/ folder.
 
