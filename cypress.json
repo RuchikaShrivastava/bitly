@@ -2,7 +2,6 @@
     "baseUrl": "https://www.qrcode-monkey.com/",
     "apiBaseUrl": "https://api.qrcode-monkey.com/",
     "chromeWebSecurity": false,
-    "trashAssetsBeforeRuns": true,
     "reporter": "mochawesome",
     "reporterOptions": {
         "reportDir": "cypress/results",
