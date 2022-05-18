@@ -24,7 +24,7 @@
     "logoPane": {
         "removeLogo": ".btn-default",
         "logoPlaceholder": ".logo-preview .loader",
-        "uploadLogo": ".btn-upload",
+        "uploadLogo": "input[type='file']",
         "logoPreview": ".logo-preview img",
         "fileError": "small[ng-show='fileSizeError']"
     },
